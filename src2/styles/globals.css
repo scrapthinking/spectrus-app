@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Raleway:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Raleway', sans-serif;
+  background-color: #2D2D2C;
+  color: #C6C6C5;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Cinzel', serif;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #2D2D2C;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D1DA4D;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b8c044;
+}
+
+/* Selection color */
+::selection {
+  background-color: #D1DA4D;
+  color: #2D2D2C;
+}
+
+/* Cursor personalizado */
+body {
+  cursor: none;
+}
+
+a, button {
+  cursor: none;
+}
+
+/* Disable cursor on mobile */
+@media (max-width: 768px) {
+  body, a, button {
+    cursor: auto;
+  }
+}
