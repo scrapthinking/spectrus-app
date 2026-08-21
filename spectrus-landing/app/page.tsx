@@ -1,17 +1,16 @@
+import DroneHero from '@/components/drone-hero/DroneHero';
+
 export default function Home() {
 
   return (
 
-    <main style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <main>
 
-      <h1 style={{ color: 'var(--fg)', fontSize: '14px', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
-
-        SPECTRUS — Fase 1 OK
-
-      </h1>
+      <DroneHero />
 
     </main>
 
   );
 
 }
+
