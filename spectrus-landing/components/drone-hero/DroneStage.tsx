@@ -147,6 +147,27 @@ export default function DroneStage() {
                 const size = new THREE.Vector3(); box.getSize(size);
                 const center = new THREE.Vector3(); box.getCenter(center);
                 root.position.sub(center);
+
+                // Normalizar materiales: algunos modelos (ej. drone_2.glb) usan
+                // alphaMode BLEND + KHR_materials_transmission que los hace invisibles.
+                // Forzamos renderizado opaco para que el sistema de opacidad los controle.
+                root.traverse((obj) => {
+                    if ((obj as THREE.Mesh).isMesh) {
+                        const mesh = obj as THREE.Mesh;
+                        const mats = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
+                        mats.forEach((mat) => {
+                            if ((mat as any).transmission !== undefined) {
+                                (mat as any).transmission = 0;
+                            }
+                            if ((mat as any).alphaMode === 'BLEND' || mat.transparent) {
+                                mat.transparent = false;
+                                mat.opacity = 1;
+                            }
+                            mat.needsUpdate = true;
+                        });
+                    }
+                });
+
                 const maxDim = Math.max(size.x, size.y, size.z) || 1;
                 const baseScale = 2.4 / maxDim;
                 const wrapper = new THREE.Group();
