@@ -1,0 +1,175 @@
+.section {
+  width: 100%;
+  max-width: 100vw;
+  overflow: hidden;
+  /* Estas dos propiedades garantizan que no haya desbordamiento que cause la barra negra */
+  box-sizing: border-box;
+  position: relative; 
+}
+
+.viewport {
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  cursor: grab;
+  user-select: none;
+  touch-action: pan-y; /* Permite scroll vertical táctil, cancela el horizontal del navegador */
+}
+
+.viewport.dragging {
+  cursor: grabbing;
+}
+
+.track {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 24px;
+  width: max-content;
+  will-change: transform;
+  user-select: none;
+}
+
+.card {
+  position: relative;
+  /* Se mantiene el tamaño exacto requerido */
+  flex: 0 0 clamp(560px, 62vw, 880px);
+  aspect-ratio: 16 / 10;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #111;
+  cursor: pointer;
+  appearance: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  transition: transform 250ms ease;
+}
+
+.card:hover {
+  transform: scale(0.99);
+}
+
+.card:focus-visible {
+  outline: 3px solid currentColor;
+  outline-offset: 5px;
+}
+
+.preview {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  /* Fallback color por si tarda en cargar la preview */
+  background-color: #222; 
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transition: opacity 250ms ease;
+  pointer-events: none;
+}
+
+.card:hover .overlay,
+.card:focus-visible .overlay {
+  opacity: 1;
+}
+
+.playIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.94);
+  color: #111;
+  font-size: 24px;
+  padding-left: 5px;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  background: rgba(0, 0, 0, 0.9);
+}
+
+.modalContent {
+  position: relative;
+  width: min(1400px, 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fullVideo {
+  display: block;
+  width: 100%;
+  max-height: 88vh;
+  object-fit: contain;
+  background: #000;
+  border-radius: 12px;
+}
+
+.closeButton {
+  position: absolute;
+  top: -55px;
+  right: 0;
+  z-index: 2;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  font-size: 32px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.closeButton:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+@media (max-width: 1000px) {
+  .card {
+    flex-basis: 70vw;
+  }
+}
+
+@media (max-width: 600px) {
+  .track {
+    gap: 14px;
+  }
+  .card {
+    flex-basis: 90vw;
+    border-radius: 12px;
+  }
+  .modal {
+    padding: 16px;
+  }
+  .closeButton {
+    top: -50px;
+  }
+}
